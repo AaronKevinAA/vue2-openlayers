@@ -34,7 +34,7 @@ export  default {
   <div class="fixed">
     <div class="inner">
       <div class="right-align">
-        <img src="../assets/logo.png" alt="" width="20%" style="margin-right: 20px">
+        <img src="../../assets/logo.png" alt="" width="40" style="margin-right: 20px">
         <el-button>地图测绘工具</el-button>
       </div>
 
@@ -79,7 +79,7 @@ export  default {
 .fixed {
   position: fixed;
   height: 80px;
-  background-color: #409EFF;
+  background-color: rgba(64,158,255,0.2);
   border: 1px;
   left: 0;
   bottom: 0;

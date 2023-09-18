@@ -2,10 +2,8 @@
   <div class="home">
     <div id="map" class="map-container"></div>
 
-
     <div class="dialog-component">
       <DialogComponent></DialogComponent>
-
     </div>
 
 
@@ -19,7 +17,7 @@ import Map from 'ol/Map'
 import TileLayer from 'ol/layer/Tile'
 import {OSM} from 'ol/source';
 import {defaults} from "ol/control";
-import DialogComponent from "@/components/DialogComponent.vue";
+import DialogComponent from "@/components/dialog_component.vue";
 export default {
   name: 'HomeView',
   components: {

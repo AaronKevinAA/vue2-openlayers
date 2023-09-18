@@ -1,10 +1,10 @@
 <script>
-import MilitaryRepost from '@/components/MilitaryRepost.vue'
-import LoadVesselVue from '@/components/LoadVessel.vue';
-import InlineResult from '@/components/InlineResult.vue';
-import TransportationPlanning from '@/components/TransportationPlanning.vue';
-import Steps from '@/components/Steps.vue';
-import BottomBar from "@/components/BottomBar.vue";
+import MilitaryRepost from '@/components/transportationplanning/military_repost.vue'
+import LoadVesselVue from '@/components/transportationplanning/load_vessel.vue';
+import InlineResult from '@/components/transportationplanning/inline_result.vue';
+import TransportationPlanning from '@/components/transportationplanning/transportation_planning.vue';
+import Steps from '@/components/transportationplanning/steps.vue';
+import BottomBar from "@/components/transportationplanning/bottom_bar.vue";
 
 export default {
   name: 'HomeView',
