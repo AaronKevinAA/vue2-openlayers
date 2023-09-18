@@ -1,6 +1,14 @@
 <template>
   <div class="home">
     <div id="map" class="map-container"></div>
+
+
+    <div class="dialog-component">
+      <DialogComponent></DialogComponent>
+
+    </div>
+
+
   </div>
 </template>
 
@@ -11,10 +19,11 @@ import Map from 'ol/Map'
 import TileLayer from 'ol/layer/Tile'
 import {OSM} from 'ol/source';
 import {defaults} from "ol/control";
-
+import DialogComponent from "@/components/DialogComponent.vue";
 export default {
   name: 'HomeView',
   components: {
+    DialogComponent
   },
   data(){
     return{
@@ -59,5 +68,11 @@ export default {
   right: 0;
   width: 100vw;
   height: 100vh;
+}
+
+.dialog-component {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
