@@ -18,6 +18,7 @@ import TileLayer from 'ol/layer/Tile'
 import {OSM} from 'ol/source';
 import {defaults} from "ol/control";
 import DialogComponent from "@/components/dialog_component.vue";
+import axios from 'axios'
 export default {
   name: 'HomeView',
   components: {
@@ -30,6 +31,17 @@ export default {
   },
   mounted() {
     this.showMap();
+  },
+  created() {
+    (()=>{
+      axios.post('http://169.254.107.196:5000/api/function_1',{})
+          .then(res => {
+            console.log(res.status)
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    })()
   },
   methods:{
     //显示地图的方法

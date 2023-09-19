@@ -36,57 +36,56 @@ export default {
 
 
   <div class="split-container">
-    <el-row>
-      <!-- 左侧区域 -->
-      <el-col :span="12">
-        <div class="left-content">
-          <!-- 左侧内容 -->
-          <el-table :data="tableData1" style="width: 100%">
-            <el-table-column prop="date" label="装载点名称" width="60">
-              <template slot-scope="scope">
-                {{ scope.row.ship }}
-              </template>
-            </el-table-column>
-            <el-table-column prop="name" label="装载方式" width="70">
-              <template slot-scope="scope">
-                {{ scope.row.hull }}
-              </template>
-            </el-table-column>
-            <el-table-column prop="address" label="吨位" width="70">
-              <template slot-scope="scope">
-                {{ scope.row.pepoleNumber }}
-              </template>
-            </el-table-column>
+    <el-row :gutter="20">
+        <!-- 左侧区域 -->
+        <el-col :span="12">
+          <div >
+            <!-- 左侧内容 -->
+            <el-table :data="tableData1"  border stripe style="width: 100%">
+              <el-table-column prop="date" label="装载点名称" width="60">
+                <template slot-scope="scope">
+                  {{ scope.row.ship }}
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="装载方式" width="70">
+                <template slot-scope="scope">
+                  {{ scope.row.hull }}
+                </template>
+              </el-table-column>
+              <el-table-column prop="address" label="吨位" width="70">
+                <template slot-scope="scope">
+                  {{ scope.row.pepoleNumber }}
+                </template>
+              </el-table-column>
 
-            <el-table-column prop="address" label="水深" width="70">
-              <template slot-scope="scope">
-                {{ scope.row.strength }}
-              </template>
-            </el-table-column>
+              <el-table-column prop="address" label="水深" width="70">
+                <template slot-scope="scope">
+                  {{ scope.row.strength }}
+                </template>
+              </el-table-column>
 
-            <el-table-column prop="address" label="长/宽" width="70">
-              <template slot-scope="scope">
-                {{ scope.row.equitment }}
-              </template>
-            </el-table-column>
+              <el-table-column prop="address" label="长/宽" width="70">
+                <template slot-scope="scope">
+                  {{ scope.row.equitment }}
+                </template>
+              </el-table-column>
 
-            <el-table-column prop="address" label="同时装载数量" width="70">
-              <template slot-scope="scope">
-                {{ scope.row.sameNumber }}
-              </template>
-            </el-table-column>
-          </el-table>
+              <el-table-column prop="address" label="同时装载数量" width="200">
+                <template slot-scope="scope">
+                  {{ scope.row.sameNumber }}
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </el-col>
 
-
-        </div>
-      </el-col>
       <!-- 右侧区域 -->
       <el-col :span="12">
-        <div class="right-content">
+        <div >
           <!-- 右侧内容 -->
           <div>
 
-            <el-table :data="tableData2" style="width: 100%">
+            <el-table :data="tableData2" border stripe style="width: 100%">
               <el-table-column prop="date" label="运输船号" width="80">
                 <template slot-scope="scope">
                   {{ scope.row.ship }}
@@ -109,7 +108,7 @@ export default {
                 </template>
               </el-table-column>
 
-              <el-table-column prop="address" label="装载时间" width="80">
+              <el-table-column prop="address" label="装载时间" width="200">
                 <template slot-scope="scope">
                   {{ scope.row.equitment }}
                 </template>
@@ -126,5 +125,11 @@ export default {
 </template>
 
 <style scoped>
-
+.split-container{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.left-content{
+  margin-left: 5px;
+}
 </style>
