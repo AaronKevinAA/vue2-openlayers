@@ -11,7 +11,7 @@
           </span>
         </template>
       </el-tree>
-      <el-button slot="reference">输送兵力</el-button>
+      <el-button slot="reference" style="width: 100px;">输送兵力</el-button>
     </el-popover>
 
     <!-- 弹出框和表格 -->
@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: 'Deliver',
+  name: 'Test2',
   data() {
     return {
       isTableVisible: false,//表格是否可见
@@ -64,131 +64,6 @@ export default {
       selectedType: 'all',//被选中的型号类型
       selectedRows1:[],//两种表被选择的信息
       selectedRows2:[],
-      tableData1: [{
-          equipment: '1陆舰',
-          model: '071虎',
-          length: 200,
-          high:20,
-          draft:5,
-          weight:2000,
-          max_speed:100,
-          quantity:1000,
-        }, {
-          equipment: '2陆舰',
-          model: '071虎',
-          length: 200,
-          high:20,
-          draft:5,
-          weight:2000,
-          max_speed:100,
-          quantity:1000,
-        }, {
-          equipment: '3陆舰',
-          model: '071虎',
-          length: 200,
-          high:20,
-          draft:5,
-          weight:2000,
-          max_speed:100,
-          quantity:1000,
-        }, {
-          equipment: '4陆舰',
-          model: '071虎',
-          length: 200,
-          high:20,
-          draft:5,
-          weight:2000,
-          max_speed:100,
-          quantity:1000,
-        }],
-      tableData2: [{
-          shell2: '0逐舰',
-          model2: '071虎',
-          num2: 200,
-          weight2:20,
-          length2:5,
-          width2:2000,
-          high2:100,
-          quantity2:1000,
-        }, {
-          shell2: '1逐舰',
-          model2: '071虎',
-          num2: 200,
-          weight2:20,
-          length2:5,
-          width2:2000,
-          high2:100,
-          quantity2:1000,
-        }, {
-          shell2: '2逐舰',
-          model2: '071虎',
-          num2: 200,
-          weight2:20,
-          length2:5,
-          width2:2000,
-          high2:100,
-          quantity2:1000,
-        }, {
-          shell2: '3逐舰',
-          model2: '071虎',
-          num2: 200,
-          weight2:20,
-          length2:5,
-          width2:2000,
-          high2:100,
-          quantity2:1000,
-        }],
-      data: [
-        {
-          label: '兵力',
-          dialogType: 'type1',
-          children: [{
-            label: '坦克一营',
-            children: [{
-              label: '坦克一连'
-            },{
-              label: '坦克二连'
-            },{
-              label: '坦克三连'
-            }]
-          },{
-            label: '炮兵一营',
-            children: [{
-              label: '炮兵一连'
-            },{
-              label: '炮兵二连'
-            },{
-              label: '炮兵三连'
-            }]
-          }]
-        }, {
-          label: '装备',
-          dialogType: 'type1',
-          children: [{
-            label: '坦克一营',
-            children: [{
-              label: '坦克一连'
-            },{
-              label: '坦克二连'
-            },{
-              label: '坦克三连'
-            }]
-          }]
-        }, {
-          label: '弹药',
-          dialogType: 'type2',
-          children: [{
-            label: '迫击炮一营',
-            children: [{
-              label: '迫击炮一连'
-            },{
-              label: '迫击炮二连'
-            },{
-              label: '迫击炮三连'
-            }]
-          }]
-        }
-      ],
       defaultProps: {
         children: 'children',
         label: 'label',
@@ -196,19 +71,11 @@ export default {
       }
     };
   },
-  computed: {
-    //没用上
-    currentTableData() {
-      // 根据当前表格类型决定要显示的表格数据
-      return this.currentTableType === 'type1' ? this.tableData1 : this.tableData2;
-    }
-  },
   methods: {
     handleNodeClick(data) {
       console.log(data);
     },
     showTable(node) {  //在点击详情之后按照表格类型加载表格数据
-      console.log('node的值为：',node)
       this.currentNode = node;
       this.currentTableType = node.data.dialogType; // 设置当前表格类型
       // 提取所有可能的类型
@@ -275,15 +142,147 @@ export default {
 
   },
   created() {
-    // 在组件创建时，初始化currentTableType
-    if (this.data.length > 0) {
-      this.currentTableType = this.data[0].dialogType;
-      console.log('创建组件是this.data[0].dialogType的值为：',this.data[0].dialogType)
-    }
-    
-  },
-  mounted() {
-    
+      this.$store.commit('SetTroopsTableData', [{
+          equipment: '1陆舰',
+          model: '071虎',
+          length: 200,
+          high:20,
+          draft:5,
+          weight:2000,
+          max_speed:100,
+          quantity:1000,
+        }, {
+          equipment: '2陆舰',
+          model: '071虎',
+          length: 200,
+          high:20,
+          draft:5,
+          weight:2000,
+          max_speed:100,
+          quantity:1000,
+        }, {
+          equipment: '3陆舰',
+          model: '071虎',
+          length: 200,
+          high:20,
+          draft:5,
+          weight:2000,
+          max_speed:100,
+          quantity:1000,
+        }, {
+          equipment: '4陆舰',
+          model: '071虎',
+          length: 200,
+          high:20,
+          draft:5,
+          weight:2000,
+          max_speed:100,
+          quantity:1000,
+        }]);
+      this.$store.commit('SetAmmunitionTableData', [{
+          shell2: '0逐舰',
+          model2: '071虎',
+          num2: 200,
+          weight2:20,
+          length2:5,
+          width2:2000,
+          high2:100,
+          quantity2:1000,
+        }, {
+          shell2: '1逐舰',
+          model2: '071虎',
+          num2: 200,
+          weight2:20,
+          length2:5,
+          width2:2000,
+          high2:100,
+          quantity2:1000,
+        }, {
+          shell2: '2逐舰',
+          model2: '071虎',
+          num2: 200,
+          weight2:20,
+          length2:5,
+          width2:2000,
+          high2:100,
+          quantity2:1000,
+        }, {
+          shell2: '3逐舰',
+          model2: '071虎',
+          num2: 200,
+          weight2:20,
+          length2:5,
+          width2:2000,
+          high2:100,
+          quantity2:1000,
+        }]);
+      this.$store.commit('SetTreeData', [
+        {
+          label: '兵力',
+          dialogType: 'type1',
+          children: [{
+            label: '坦克一营',
+            children: [{
+              label: '坦克一连'
+            },{
+              label: '坦克二连'
+            },{
+              label: '坦克三连'
+            }]
+          },{
+            label: '炮兵一营',
+            children: [{
+              label: '炮兵一连'
+            },{
+              label: '炮兵二连'
+            },{
+              label: '炮兵三连'
+            }]
+          }]
+        }, {
+          label: '装备',
+          dialogType: 'type1',
+          children: [{
+            label: '坦克一营',
+            children: [{
+              label: '坦克一连'
+            },{
+              label: '坦克二连'
+            },{
+              label: '坦克三连'
+            }]
+          }]
+        }, {
+          label: '弹药',
+          dialogType: 'type2',
+          children: [{
+            label: '迫击炮一营',
+            children: [{
+              label: '迫击炮一连'
+            },{
+              label: '迫击炮二连'
+            },{
+              label: '迫击炮三连'
+            }]
+          }]
+        }
+      ]);
+      // 在组件创建时，初始化currentTableType
+      if (this.data.length > 0) {
+        this.currentTableType = this.data[0].dialogType;
+        console.log('创建组件是this.data[0].dialogType的值为：',this.data[0].dialogType)
+      }
+    },
+  computed: {
+      tableData1() {
+        return this.$store.state.troopsTableData;
+      },
+      tableData2() {
+        return this.$store.state.ammunitionTableData;
+      },
+      data() {
+        return this.$store.state.treeData;
+      }
   }
 };
 </script>

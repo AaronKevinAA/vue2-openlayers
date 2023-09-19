@@ -1,7 +1,11 @@
 <template>
   <div>
     <!-- 创建一个按钮，点击时弹出弹出框 -->
-    <el-button v-popover:popover>集结区展示</el-button>
+    <el-button v-popover:popover style="
+      width: 100px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;">集结区展示</el-button>
 
     <!-- 创建弹出框和卡片 -->
     <el-popover ref="popover" placement="right" width="200" trigger="click">
@@ -35,8 +39,6 @@ export default {
     data() {
         return {
             isTableVisible: false,
-            tableData: [],
-            // 其他数据...
         };
     },
     methods: {
@@ -46,7 +48,11 @@ export default {
         showTable() {
             this.isTableVisible = true;
                 // 在这里设置你的表格数据
-            this.tableData = [{
+            //this.tableData = ;
+        }
+    },
+    created() {
+      this.$store.commit('setAssembleTableData', [{
             region : '1-A',
             longitude: '120°28`',
             latitude: '25°06`',
@@ -106,8 +112,12 @@ export default {
             latitude: '25°06`',
             length: 100,
             width: 50
-            }];
-        }
+            }]);
+    },
+    computed: {
+      tableData() {
+        return this.$store.state.assembleTableData;
+      }
     }
 };
 </script>

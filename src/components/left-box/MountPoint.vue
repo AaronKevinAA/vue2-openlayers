@@ -1,7 +1,11 @@
 <template>
   <div>
     <!-- 创建一个按钮，点击时弹出弹出框 -->
-    <el-button v-popover:popover>装载点展示</el-button>
+    <el-button v-popover:popover style="
+      width: 100px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;">装载点展示</el-button>
 
     <!-- 创建弹出框和卡片 -->
     <el-popover ref="popover" placement="right" width="200" trigger="click">
@@ -51,10 +55,8 @@ export default {
     data() {
         return {
             isTableVisible: false,
-            tableData: [],
             selectedType: 'all',
             types: [{ label: '全选', value: 'all' }], // 你需要根据你的数据来填充这个数组
-            tableData: [], // 原始表格数据
             filteredData: [], // 筛选后的表格数据
             selectedRows:[],//被选择的信息
             // 其他数据...
@@ -68,7 +70,38 @@ export default {
         showTable() {
             this.isTableVisible = true;
             // 在这里设置你的表格数据,请求的话在这里请求
-            this.tableData = [{
+            this.filteredData = this.tableData;
+            // 提取所有可能的类型
+            const uniqueTypes = [...new Set(this.tableData.map(row => row.equipment))];
+            // 将每个类型转换为el-option需要的格式
+            this.types = uniqueTypes.map(type => ({ value: type, label: type }));
+        },
+        //筛选装备类型
+        handleFilter() {
+          if (this.selectedType && this.selectedType !== 'all') {
+            this.filteredData = this.tableData.filter(row => row.equipment === this.selectedType);
+          } else {
+            this.filteredData = this.tableData;
+          }
+        },
+
+        handleSelectionChange(selectedRows) {
+          this.selectedRows = selectedRows;
+        },
+        submitSelectedRows() {
+          // 在这里把 this.selectedRows 发送到后台
+          //修改为正确api即可
+            axios.post('/api1', this.selectedRows)
+            .then(response => {
+              console.log(response.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }    
+    },
+    created() {
+      this.$store.commit('SetMountPointTableData', [{
             equipment: '登陆舰',
             model: '071虎',
             length: 200,
@@ -114,39 +147,12 @@ export default {
             weight:2000,
             max_speed:100,
             quantity:1000,
-            }];
-            this.filteredData = this.tableData;
-            // 提取所有可能的类型
-            const uniqueTypes = [...new Set(this.tableData.map(row => row.equipment))];
-            // 将每个类型转换为el-option需要的格式
-            this.types = uniqueTypes.map(type => ({ value: type, label: type }));
-        },
-        //筛选装备类型
-        handleFilter() {
-          if (this.selectedType && this.selectedType !== 'all') {
-            this.filteredData = this.tableData.filter(row => row.equipment === this.selectedType);
-          } else {
-            this.filteredData = this.tableData;
-          }
-        },
-        created() {
-          // 在组件创建时，初始化filteredData
-          this.filteredData = this.tableData;
-        },
-        handleSelectionChange(selectedRows) {
-          this.selectedRows = selectedRows;
-        },
-        submitSelectedRows() {
-          // 在这里把 this.selectedRows 发送到后台
-          //修改为正确api即可
-            axios.post('/api1', this.selectedRows)
-            .then(response => {
-              console.log(response.data);
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        }    
+            }]);
+    },
+    computed: {
+      tableData() {
+        return this.$store.state.mountPointTableData;
+      }
     }
 };
 </script>

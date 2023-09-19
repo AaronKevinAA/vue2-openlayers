@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import Assemble from './components/Assemble.vue';
-import Freight from './components/Freight .vue';
-import MountPoint from './components/MountPoint.vue';
-import Test2 from './components/Test2.vue'
+import Assemble from './components/left-box/Assemble.vue';
+import Freight from './components/left-box/Freight .vue';
+import MountPoint from './components/left-box/MountPoint.vue';
+import Test2 from './components/left-box/Test2.vue'
 export default {
   name: 'App',
   components: {

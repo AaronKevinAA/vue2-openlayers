@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 创建一个按钮，点击时弹出弹出框 -->
-    <el-button v-popover:popover>装载兵力</el-button>
+    <el-button v-popover:popover style="width: 100px;">装载兵力</el-button>
 
     <!-- 创建弹出框和卡片 -->
     <el-popover ref="popover" placement="right" width="200" trigger="click">
@@ -51,7 +51,6 @@ export default {
     data() {
         return {
             isTableVisible: false,
-            tableData: [],
             filteredData: [],
             types: [{ label: '全选', value: 'all' }], // 所有种类
             selectedType: 'all',//被选中的类型
@@ -65,7 +64,42 @@ export default {
         showTable() {
             this.isTableVisible = true;
                 // 在这里设置你的表格数据
-            this.tableData = [{
+            //this.tableData = ;
+            this.filteredData = this.tableData;
+            // 提取所有可能的类型
+            const uniqueTypes = [...new Set(this.tableData.map(row => row.equipment))];
+            // 将每个类型转换为el-option需要的格式
+            this.types = uniqueTypes.map(type => ({ value: type, label: type }));
+        },
+        handleFilter() {
+          if (this.selectedType && this.selectedType !== 'all') {
+            this.filteredData = this.tableData.filter(row => row.equipment === this.selectedType);
+          } else {
+            this.filteredData = this.tableData;
+          }
+        },
+        handleSelectionChange(selectedRows) {
+          this.selectedRows = selectedRows;
+        },
+        submitSelectedRows() {
+          // 在这里把 this.selectedRows 发送到后台
+          //修改为正确api即可
+            axios.post('/api1', this.selectedRows)
+            .then(response => {
+              console.log(response.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }    
+    },
+    computed: {
+      tableData() {
+        return this.$store.state.freightTableData;
+      }
+    },
+    created() {
+      this.$store.commit('SetFreightTableData', [{
             equipment: '0陆舰',
             model: '071虎',
             length: 200,
@@ -101,35 +135,8 @@ export default {
             weight:2000,
             max_speed:100,
             quantity:1000,
-            }];
-            this.filteredData = this.tableData;
-            // 提取所有可能的类型
-            const uniqueTypes = [...new Set(this.tableData.map(row => row.equipment))];
-            // 将每个类型转换为el-option需要的格式
-            this.types = uniqueTypes.map(type => ({ value: type, label: type }));
-        },
-        handleFilter() {
-          if (this.selectedType && this.selectedType !== 'all') {
-            this.filteredData = this.tableData.filter(row => row.equipment === this.selectedType);
-          } else {
-            this.filteredData = this.tableData;
-          }
-        },
-        handleSelectionChange(selectedRows) {
-          this.selectedRows = selectedRows;
-        },
-        submitSelectedRows() {
-          // 在这里把 this.selectedRows 发送到后台
-          //修改为正确api即可
-            axios.post('/api1', this.selectedRows)
-            .then(response => {
-              console.log(response.data);
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        }    
-    }
+            }]);
+    },
 };
 </script>
 
