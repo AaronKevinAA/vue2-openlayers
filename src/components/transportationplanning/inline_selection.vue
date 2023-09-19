@@ -15,7 +15,6 @@
                 @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">
               </el-checkbox>
             </el-menu-item>
-
           </el-submenu>
         </el-submenu>
       </el-submenu>

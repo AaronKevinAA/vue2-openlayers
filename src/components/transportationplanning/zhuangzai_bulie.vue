@@ -8,7 +8,7 @@
         <el-col :span="20">
           <div class="left-content">
             <!-- 左侧内容 -->
-            <div class="ship" :style="'width:'+w+'px;height:'+h+'px'" @click="handIamge1Click">
+            <div class="ship" :style="'width:'+w+'px;height:'+h+'px'">
               <div v-for="(container, index) in container_list" :key="index">
                 <div class="container" :style="{top: container.y + 'px', left: container.x + 'px'}"></div>
               </div>
@@ -20,7 +20,7 @@
           <div class="right-content">
             <!-- 右侧内容 -->
             <div>
-              <el-select v-model="value" placeholder="请选择" @change="gengHunaShip()">
+              <el-select v-model="value" placeholder="请选择"  @change="gengHunaShip">
                 <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -66,7 +66,7 @@ export default {
         value: '5',
         label: '075'
       }],
-      value: '1'
+      value: ''
     }
 
   },
