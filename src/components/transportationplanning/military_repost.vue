@@ -15,7 +15,6 @@
                 @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">
               </el-checkbox>
             </el-menu-item>
-
           </el-submenu>
         </el-submenu>
       </el-submenu>
@@ -42,12 +41,12 @@ export default {
   },
   methods: {
     checkboxClick(value) {
-      if (this.$store.state.checkedMilitary.includes(value)) {
-        this.$store.commit('removeCheckMilitary',value)
+      if (this.$store.state.inlineListData.includes(value)) {
+        this.$store.commit('removeCheckInline',value)
       } else {
-        this.$store.commit('pushCheckedMilitary',value)
+        this.$store.commit('pushCheckedInline',value)
       }
-      console.log(this.$store.state.checkedMilitary)
+      console.log(this.$store.state.inlineListData)
     },
     nextButton(){
     }

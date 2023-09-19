@@ -17,8 +17,14 @@ export default new Vuex.Store({
       { name: '装备', index: '2', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '迫击炮2营', index: '2', children: [{ name: '迫击炮1连', index: '1' }, { name: '迫击炮2连', index: '2' }, { name: '迫击炮3连', index: '3' }] }] },
       { name: '弹药', index: '3', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '炮兵2营', index: '2', children: [{ name: '炮兵1连', index: '1' }, { name: '炮兵1连', index: '2' }, { name: '炮兵1连', index: '2' }] }] }
     ],
+    inlineListData: [
+      { name: '陆战1旅', index: '1', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '炮兵2营', index: '2', children: [{ name: '炮兵1连', index: '1' }, { name: '炮兵2连', index: '2' },{ name: '炮兵3连', index: '3' }] }] },
+      { name: '陆战2旅', index: '2', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '迫击炮2营', index: '2', children: [{ name: '迫击炮1连', index: '1' }, { name: '迫击炮2连', index: '2' }, { name: '迫击炮3连', index: '3' }] }] },
+      { name: '陆战3旅', index: '3', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '炮兵2营', index: '2', children: [{ name: '炮兵1连', index: '1' }, { name: '炮兵1连', index: '2' }, { name: '炮兵1连', index: '2' }] }] }
+    ],
     checkedMilitary: [],
     checkedMilitaryLoad:[],
+    checkInlineListData:[],
 
     //  page2
     loadVesselData: [
@@ -72,6 +78,15 @@ export default new Vuex.Store({
     removeCheckMilitary(state,element){
       state.checkedMilitary.splice(state.checkedMilitary.indexOf(element), 1);
     },
+    // inline data
+    pushCheckedInline(state,element){
+      state.checkInlineListData.push(element)
+    },
+    removeCheckInline(state,element){
+      state.checkInlineListData.splice(state.checkInlineListData.indexOf(element), 1);
+    },
+
+    //
     clearCheckMilitary(state){
       state.checkedMilitary = []
     },

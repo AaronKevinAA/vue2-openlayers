@@ -7,6 +7,9 @@ import Inline_selection from "@/components/transportationplanning/inline_selecti
 import TransportationPlanning from '@/components/transportationplanning/transportation_planning.vue';
 import Steps from '@/components/transportationplanning/steps.vue';
 import BottomBar from "@/components/transportationplanning/bottom_bar.vue";
+import Zhuangzai_bulie from "@/components/transportationplanning/zhuangzai_bulie.vue";
+import jijiedian from "@/components/transportationplanning/jijiedian.vue";
+import index from "vuex";
 
 export default {
   name: 'HomeView',
@@ -18,7 +21,9 @@ export default {
     InlineResult,
     TransportationPlanning,
     Steps,
-    BottomBar
+    BottomBar,
+    Zhuangzai_bulie,
+    jijiedian
   },
   data(){
     return{
@@ -44,18 +49,41 @@ export default {
       return shipData.find(item=>item.id === id)
     },
     add(){
-      this.index <4?this.index ++ : this.index = 1
-      if(this.index === 4){
+      this.index <6?this.index ++ : this.index = 1
+      if(this.index === 6){
         this.dialogVisible = false;
         this.index=1
       }
     },
+
     handleClose(done) {
       console.log("handleclose")
       this.$store.commit('clearSelectShipList')
       this.$store.commit('clearCheckMilitary')
       this.index = 1
       done()
+    },
+    //关连Button
+    guanLinaButton(){
+      const selectData = this.$store.state.checkInlineListData
+      const shipData = this.$store.state.selectShipList
+
+      console.log('selectdata',selectData)
+      console.log('shipdata',shipData)
+      let indexNameString = []
+      for(let i = 0;i<selectData.length;i++){
+        indexNameString.push(this.getNameListData(this.$store.state.inlineListData,selectData[i].split('-').map(Number)))
+      }
+      console.log(indexNameString)
+
+      this.$store.commit('changeInlineResultData',[
+        {
+          id: this.id_add(),
+          date: this.getShipById(shipData[0],this.$store.state.loadVesselData).date,
+          name: this.getShipById(shipData[0],this.$store.state.loadVesselData).name,
+          address:indexNameString.join('\n')
+        },
+      ])
     }
   }
 }
@@ -94,10 +122,7 @@ export default {
         </el-col>
       </el-row>
     </div>
-<!--    <div style="display: flex">-->
-<!--      <MilitaryLoad v-if="index === 1"></MilitaryLoad>-->
-<!--      <MilitaryRepost v-if="index === 1"></MilitaryRepost>-->
-<!--    </div>-->
+
 
     <div class="split-container" v-if="index===2">
       <el-row>
@@ -114,7 +139,7 @@ export default {
           <div class="middle-content">
             <!-- 中间内容 -->
             <LoadVesselVue ></LoadVesselVue>
-            <el-button>添加关联</el-button>
+            <el-button @click="guanLinaButton">添加关联</el-button>
           </div>
         </el-col>
 
@@ -129,11 +154,9 @@ export default {
     </div>
 
 
-<!--    <div>-->
-<!--      <LoadVesselVue v-if="index===2"></LoadVesselVue>-->
-<!--      <InlineResult v-if="index===3"></InlineResult>-->
-<!--    </div>-->
-    <TransportationPlanning v-if="index===4"></TransportationPlanning>
+    <Zhuangzai_bulie v-if="index===3"></Zhuangzai_bulie>
+    <jijiedian v-if="index===4"></jijiedian>
+    <TransportationPlanning v-if="index===5"></TransportationPlanning>
     <el-button @click="add">下一步</el-button>
   </el-dialog>
 
