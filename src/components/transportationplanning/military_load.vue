@@ -4,7 +4,7 @@
 
     <el-menu class="el-menu-vertical-demo">
       <el-submenu index="1">
-        <template slot="title">可输送兵力</template>
+        <template slot="title">可装载兵力</template>
         <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">
           <template slot="title">{{ item.name }}</template>
           <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">

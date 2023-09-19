@@ -23,22 +23,14 @@ export default {
         }
     },
     methods: {
-        // next() {
-        //     // if (this.active++ > 5) this.active = 0;
-        //   if(active === 1 && active === 2 && active===3){
-        //     this.index = 0
-        //   }else if(active === 4){
-        //     this.index = 1
-        //   }
-        // }
     },
   computed:{
       next(){
         if(this.active === 1 ){
           return 0
-        }else if(this.active === 2 || this.active===3){
+        }else if(this.active === 2 ){
           return 1
-        }else if(this.active === 4){
+        }else if(this.active === 3){
           return 5
         }else if(this.active === 5 ){
           return 3

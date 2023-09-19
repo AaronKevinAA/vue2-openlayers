@@ -22,8 +22,10 @@ export  default {
       setTimeout(this.updateTime, 1000)
     },
     arrayClickButton(){
-      console.log("!231")
       this.$emit('show')
+    },
+    showPlan(){
+      this.$emit('show2')
     }
   }
 
@@ -41,7 +43,7 @@ export  default {
       <div class="center-align">
         <el-button>建制编排</el-button>
         <el-button @click="arrayClickButton">输送筹划</el-button>
-        <el-button>输送方案展示</el-button>
+        <el-button @click="showPlan">输送方案展示</el-button>
       </div>
 
 
