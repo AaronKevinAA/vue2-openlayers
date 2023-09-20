@@ -6,7 +6,11 @@
       <el-submenu index="1">
         <template slot="title">可输送兵力</template>
         <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">
-          <template slot="title">{{ item.name }}</template>
+          <template slot="title">
+            <el-checkbox @click="youXianShuSongBingLi(item.index)">
+              {{ item.name }}
+            </el-checkbox>
+          </template>
           <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">
             <template slot="title">{{ item2.name }}</template>
             <el-menu-item v-for="(subItem, subIndex) in item2.children" :key="subIndex"
@@ -42,12 +46,22 @@ export default {
   methods: {
     checkboxClick(value) {
       if (this.$store.state.inlineListData.includes(value)) {
-        this.$store.commit('removeCheckInline',value)
+        this.$store.commit('removeCheckMilitary',value)
       } else {
-        this.$store.commit('pushCheckedInline',value)
+        this.$store.commit('pushCheckedMilitary',value)
       }
       console.log(this.$store.state.inlineListData)
     },
+
+    youXianShuSongBingLi(value) {
+      if (this.$store.state.youXianShuSongBingLi.includes(value)) {
+        this.$store.commit('removeYouXianShuSong',value)
+      } else {
+        this.$store.commit('pushYouXianShuSong',value)
+      }
+      console.log(this.$store.state.inlineListData)
+    },
+
     nextButton(){
     }
   }

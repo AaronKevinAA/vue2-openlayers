@@ -5,16 +5,24 @@
     <el-menu class="el-menu-vertical-demo">
       <el-submenu index="1">
         <template slot="title">装备选择</template>
-        <el-submenu v-for="(item, index) in this.$store.state.inlineListData" :key="index" :index="item.index">
+        <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">
           <template slot="title">{{ item.name }}</template>
           <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">
             <template slot="title">{{ item2.name }}</template>
-            <el-menu-item v-for="(subItem, subIndex) in item2.children" :key="subIndex"
+            <el-submenu v-for="(subItem, subIndex) in item2.children" :key="subIndex"
               :index="item.index + '-' + item2.index + '-' + subItem.index">
-              <el-checkbox :label="subItem.name"
-                @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">
-              </el-checkbox>
-            </el-menu-item>
+              <template slot="title">
+                <el-checkbox :label="subItem.name"
+                             @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">
+                </el-checkbox>
+              </template>
+              <el-menu-item v-for="(it,id) in returnZhunBeiData()">
+                <el-checkbox @change="checkboxClick(it.ID)">
+                  {{ it.装备类型}}
+                </el-checkbox>
+              </el-menu-item>
+
+            </el-submenu>
           </el-submenu>
         </el-submenu>
       </el-submenu>
@@ -41,12 +49,16 @@ export default {
   },
   methods: {
     checkboxClick(value) {
-      if (this.$store.state.checkedMilitary.includes(value)) {
+      if (this.$store.state.checkInlineListData.includes(value)) {
         this.$store.commit('removeCheckInline',value)
       } else {
         this.$store.commit('pushCheckedInline',value)
       }
       console.log(this.$store.state.inlineResultData)
+    },
+
+    returnZhunBeiData(){
+      return this.$store.state.inlineListData
     },
     nextButton(){
     }

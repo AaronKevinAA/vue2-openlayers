@@ -1,28 +1,28 @@
 <template>
     <div class="table-container">
         <el-table :data="this.$store.state.loadVesselData" style="width: 100%">
-            <el-table-column prop="isCheck" label="选择" width="50">
+            <el-table-column prop="isCheck" label="选择" width="90">
                 <template slot-scope="scope">
                     <!-- {{ scope }} -->
-                    <el-checkbox @change="buttonChange(scope.row.id)">
+                    <el-checkbox @change="buttonChange(scope.row.ID)">
                     </el-checkbox>
                 </template>
             </el-table-column>
-            <el-table-column prop="date" label="装备类型" width="90">
+            <el-table-column prop="date" label="装备类型" width="150">
                 <template slot-scope="scope">
-                    {{ scope.row.date }}
+                    {{ scope.row.运输船类型 }}
                 </template>
             </el-table-column>
-            <el-table-column prop="name" label="型号" width="90">
+            <el-table-column prop="name" label="型号" width="150">
                 <template slot-scope="scope">
-                    {{ scope.row.name }}
+                    {{ scope.row.型号 }}
                 </template>
             </el-table-column>
-            <el-table-column prop="address" label="船号" width="90">
-                <template slot-scope="scope">
-                    {{ scope.row.address }}
-                </template>
-            </el-table-column>
+<!--            <el-table-column prop="address" label="船号" width="90">-->
+<!--                <template slot-scope="scope">-->
+<!--                    {{ scope.row.address }}-->
+<!--                </template>-->
+<!--            </el-table-column>-->
         </el-table>
 
 <!--        <el-button @click="nextButton">下一步</el-button>-->

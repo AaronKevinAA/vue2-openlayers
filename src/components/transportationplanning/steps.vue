@@ -35,8 +35,8 @@ export default {
         }else if(this.active === 4 ){
           return 3
         }else if(this.active === 5){
-          return 5
-        }else if(this.active === 7){
+          return 4
+        }else if(this.active === 6){
           return 5
         }
       }

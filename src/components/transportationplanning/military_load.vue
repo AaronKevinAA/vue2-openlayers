@@ -4,20 +4,26 @@
 
     <el-menu class="el-menu-vertical-demo">
       <el-submenu index="1">
-        <template slot="title">可装载兵力</template>
-        <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">
-          <template slot="title">{{ item.name }}</template>
-          <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">
-            <template slot="title">{{ item2.name }}</template>
-            <el-menu-item v-for="(subItem, subIndex) in item2.children" :key="subIndex"
-              :index="item.index + '-' + item2.index + '-' + subItem.index">
-              <el-checkbox :label="subItem.name"
-                @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">
-              </el-checkbox>
-            </el-menu-item>
+        <template slot="title">可装载装备</template>
+<!--        <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">-->
+<!--          <template slot="title">{{ item.name }}</template>-->
+<!--          <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">-->
+<!--            <template slot="title">{{ item2.name }}</template>-->
+<!--            <el-menu-item v-for="(subItem, subIndex) in item2.children" :key="subIndex"-->
+<!--              :index="item.index + '-' + item2.index + '-' + subItem.index">-->
+<!--              <el-checkbox :label="subItem.name"-->
+<!--                @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">-->
+<!--              </el-checkbox>-->
+<!--            </el-menu-item>-->
 
-          </el-submenu>
-        </el-submenu>
+<!--          </el-submenu>-->
+<!--        </el-submenu>-->
+
+        <el-menu-item v-for="(item,index) in this.$store.state.militaryLoad">
+          <el-checkbox @change="checkboxClick(item.ID)">
+            {{item.运输船类型 + '-' + item.型号}}
+          </el-checkbox>
+        </el-menu-item>
       </el-submenu>
     </el-menu>
 
@@ -42,10 +48,10 @@ export default {
   },
   methods: {
     checkboxClick(value) {
-      if (this.$store.state.checkedMilitary.includes(value)) {
-        this.$store.commit('removeCheckMilitary',value)
+      if (this.$store.state.junDuiShip.includes(value)) {
+        this.$store.commit('removeSelectJunDuiShip',value)
       } else {
-        this.$store.commit('pushCheckedMilitary',value)
+        this.$store.commit('pushSelectJunDuiShip',value)
       }
       console.log(this.$store.state.checkedMilitary)
     },
