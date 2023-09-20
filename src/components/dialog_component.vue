@@ -324,7 +324,7 @@ export default {
     <div class="split-container" v-if="index===2">
       <el-row>
         <!-- 左侧区域 -->
-        <el-col :span="4">
+        <el-col :span="6">
           <div class="left-content">
             <!-- 左侧内容 -->
             <Inline_selection></Inline_selection>
@@ -332,7 +332,7 @@ export default {
         </el-col>
 
         <!-- 中间区域 -->
-        <el-col :span="10">
+        <el-col :span="9">
           <div class="middle-content">
             <!-- 中间内容 -->
             <LoadVesselVue ></LoadVesselVue>
@@ -342,7 +342,7 @@ export default {
         </el-col>
 
         <!-- 右侧区域 -->
-        <el-col :span="10">
+        <el-col :span="9">
           <div class="right-content">
             <!-- 右侧内容 -->
             <InlineResult></InlineResult>
