@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         buttonChange(value) {
-            console.log(value)
+            // console.log(value)
             if (this.$store.state.selectShipList.includes(value)) {
                 // this.selectShipList.splice(this.selectShipList.indexOf(value), 1);
                 this.$store.commit('removeSelectShipList',value)
@@ -69,7 +69,7 @@ export default {
                 // this.selectShipList.push(value);
                 this.$store.commit('pushSelectShipList',value)
             }
-            console.log((this.$store.state.selectShipList))
+            // console.log((this.$store.state.selectShipList))
         },
 
         nextButton(){

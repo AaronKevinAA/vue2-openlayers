@@ -16,11 +16,17 @@
                              @change="checkboxClick(item.index + '-' + item2.index + '-' + subItem.index)">
                 </el-checkbox>
               </template>
-              <el-menu-item v-for="(it,id) in returnZhunBeiData()">
-                <el-checkbox @change="checkboxClick(it.ID)">
-                  {{ it.装备类型}}
-                </el-checkbox>
-              </el-menu-item>
+
+              <div v-for="(it,id1) in returnZhunBeiData()" :key="id1">
+                <el-menu-item  v-if="subItem.equip === it.ID">
+                  <div>  {{ it.装备类型}} </div>
+                </el-menu-item>
+              </div>
+<!--              <el-menu-item >-->
+<!--&lt;!&ndash;                <el-checkbox @change="checkZunBeiList(item.index + '-' + item2.index + '-' + subItem.index,it.ID)">&ndash;&gt;-->
+<!--                <div v-if="subItem.equip === it.ID">  {{ it.装备类型}}</div>-->
+<!--&lt;!&ndash;                </el-checkbox>&ndash;&gt;-->
+<!--              </el-menu-item>-->
 
             </el-submenu>
           </el-submenu>
@@ -54,7 +60,13 @@ export default {
       } else {
         this.$store.commit('pushCheckedInline',value)
       }
+
       console.log(this.$store.state.inlineResultData)
+    },
+    checkZunBeiList(junDuiIndex,zunBeiId){
+      // console.log(junDuiIndex,zunBeiId)
+      this.$store.commit('pushSelectJunDuiAndZhunBei',[junDuiIndex,zunBeiId])
+      // console.log('checkZunBeiList',this.$store.state.junDuiJunBei)
     },
 
     returnZhunBeiData(){

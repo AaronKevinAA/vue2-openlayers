@@ -1,11 +1,11 @@
 <template>
     <div>
         <el-steps :active="next" finish-status="success">
+            <el-step title="集结点"></el-step>
             <el-step title="装载兵力"></el-step>
             <el-step title="装载关联"></el-step>
             <el-step title="装载步列"></el-step>
             <el-step title="装载点"></el-step>
-            <el-step title="集结点"></el-step>
             <el-step title="方案生成"></el-step>
         </el-steps>
 <!--      {{next}}-->

@@ -203,6 +203,8 @@ export default new Vuex.Store({
     checkedMilitaryLoad:[],
     checkInlineListData:[],
     youXianShuSongBingLi:[],
+    // 什么军队选择了什么装备
+    junDuiJunBei: {},
     // 军队 船
     junDuiShip:[],
 
@@ -318,6 +320,21 @@ export default new Vuex.Store({
       state.junDuiShip.splice(state.junDuiShip.indexOf(element), 1);
     },
 
+    // 什么军队选择了什么装备
+    pushSelectJunDuiAndZhunBei(state,junDuiId){
+      // console.log(junDuiId)
+      if(!state.junDuiJunBei.hasOwnProperty(junDuiId[0])){
+        state.junDuiJunBei[junDuiId[0]] = [junDuiId[1]]
+      }else {
+        var index = state.junDuiJunBei[junDuiId[0]].indexOf(junDuiId[1])
+        if (index===-1){
+          state.junDuiJunBei[junDuiId[0]].push(junDuiId[1])
+        }else{
+          state.junDuiJunBei[junDuiId[0]].splice(index,1)
+        }
+      }
+    },
+
     // 优先输送兵力
 
     pushYouXianShuSong(state,element){
@@ -328,7 +345,7 @@ export default new Vuex.Store({
     },
 
 
-    // 装备
+    // 勾选和删除的军队
     pushCheckedInline(state,element){
       state.checkInlineListData.push(element)
     },

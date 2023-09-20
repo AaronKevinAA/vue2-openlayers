@@ -41,13 +41,18 @@ export default {
       return this.id++;
     },
     getNameListData(militaryData,indexList){
+      let indexNumberList =  indexList.split('-').map(Number)
+      let s= militaryData[indexNumberList[0] - 1].name + '-' + militaryData[indexNumberList[0] - 1].children[indexNumberList[1] - 1].name + '-' + militaryData[indexNumberList[0] - 1].children[indexNumberList[1] - 1].children[indexNumberList[2] - 1].name + ' ' + militaryData[indexNumberList[0] - 1].children[indexNumberList[1] - 1].children[indexNumberList[2] - 1].people + "人"
+      let eq = militaryData[indexNumberList[0] - 1].children[indexNumberList[1] - 1].children[indexNumberList[2] - 1].equip
+      let eq_number =  militaryData[indexNumberList[0] - 1].children[indexNumberList[1] - 1].children[indexNumberList[2] - 1].equipmentNumber
+      let ss = this.$store.state.inlineListData.find(item=>item.ID === eq).装备类型
+      return s +' ' + ss+ ':' + eq_number+ '辆'
+
       // for(let i=0;i<indexList.length;i++){
       //   indexList[i] =indexList[i]-1
       // }
-      // console.log(militaryData)
       // return militaryData[indexList[0]].name + '-' + militaryData[indexList[0]].children[indexList[1]].name + '-' + militaryData[indexList[0]].children[indexList[1]].children[indexList[2]].name
-
-      return militaryData.find((item=>item.ID === indexList)).装备类型
+      // return militaryData.find((item=>item.ID === indexList)).装备类型
 
     },
     getShipById(id,shipData){
@@ -84,7 +89,6 @@ export default {
     },
 
     handleClose(done) {
-      console.log("handleclose")
       this.$store.commit('clearSelectShipList')
       this.$store.commit('clearCheckMilitary')
       this.index = 1
@@ -93,15 +97,13 @@ export default {
     //关连Button
     guanLinaButton(){
       const selectData = this.$store.state.checkInlineListData
+      const junDuiXunZeData = this.$store.state.junDuiJunBei
       const shipData = this.$store.state.selectShipList
 
-      console.log('selectdata',selectData)
-      console.log('shipdata',shipData)
       let indexNameString = []
       for(let i = 0;i<selectData.length;i++){
-        indexNameString.push(this.getNameListData(this.$store.state.inlineListData,selectData[i]))
+        indexNameString.push(this.getNameListData(this.$store.state.militaryRepost,selectData[i]))
       }
-      console.log(indexNameString)
 
       this.$store.commit('changeInlineResultData',[
         {
@@ -125,7 +127,7 @@ export default {
           'length':jiJieDianData[i].长度
         }
       }
-      // console.log(todata)
+      console.log(todata)
       return todata
 
     },
@@ -133,8 +135,7 @@ export default {
     getDengLuShipData(selectShipData,allShipData){
       let selectShip = allShipData.find(item=>item.ID === selectShipData[0])
       let returndata = {}
-      console.log(selectShip)
-      returndata["071登陆舰"]={
+      returndata[selectShip.型号]={
         "length":selectShip.长度,
         "width":selectShip.宽度,
         "draught":selectShip.吃水,
@@ -149,44 +150,57 @@ export default {
       for(let i =0;i<data.length;i++){
         returnData.push(data[i].split('-').map(Number))
       }
-      console.log(returnData)
       return returnData
     },
     getRenShuData(){
-      let selectData = this.$store.state.checkedMilitary
-      let junDuiXinXi = this.$store.state.militaryRepost
-      selectData = this.zhuanHuaInt(selectData)
-      let returndata = {}
-
-      returndata['Id'] =junDuiXinXi[selectData[0][0]].id
-      returndata['Name'] =junDuiXinXi[selectData[0][0]].name
-      returndata['assign']= this.$store.state.militaryLoad.find(item=>item.ID === this.$store.state.junDuiShip[0]).型号 + this.$store.state.militaryLoad.find(itme=>item.ID === this.$store.state.junDuiShip[0]).运输船类型
-      returndata['first_deliver'] = !!this.$store.state.youXianShuSongBingLi.find(item => item === junDuiXinXi[i].index).isNull()
-      returndata['Camps'] =[]
-      for(let i=0;i<selectData.length;i++){
-        returndata['Camps'].push({
-          'id:':junDuiXinXi[i[0]].children[i[1]].id,
-          'Name':junDuiXinXi[i[0]].children[i[1]].name,
-          'assign':this.$store.state.militaryLoad.find(item=>item.ID === this.$store.state.junDuiShip[0]).型号 + this.$store.state.militaryLoad.find(itme=>item.ID === this.$store.state.junDuiShip[0]).运输船类型,
-          'Campanies':{
-            "Id":junDuiXinXi[i[0]].children[i[1]].children[i[2]].id,
-            "Name":junDuiXinXi[i[0]].children[i[1]].children[i[2]].name,
-            'assign':this.$store.state.militaryLoad.find(item=>item.ID === this.$store.state.junDuiShip[0]).型号 + this.$store.state.militaryLoad.find(itme=>item.ID === this.$store.state.junDuiShip[0]).运输船类型,
-            "Num_soldier":junDuiXinXi[i[0]].children[i[1]].children[i[2]].people,
-            'good':{
-              "belong_id":junDuiXinXi[i[0]].children[i[1]].children[i[2]].id,
-              "name":"物资",
-              "length":4,
-              "width":2,
-              "weight":1,
-              "time":5,
-              "num":10
-            }
-          }
-        })
-      }
+      // 1-1-1  1-2-1  2-1-1
+      let data  = ['1-1-1' ,'2-2-1' ,'1-2-1']
+      data.sort((a,b)=>{
+        return a.localeCompare(b)
+      })
+      console.log(data)
+      //
+      // let selectData = this.$store.state.checkedMilitary
+      // let junDuiXinXi = this.$store.state.militaryRepost
+      // selectData = this.zhuanHuaInt(selectData)
+      // let returndata = []
+      // for(let i=0;i<data.length;i++){
+      //   let arr = data[i].split('-').map(Number)
+      //   for(let j=0;j<arr.length;j++){
+      //
+      //   }
+      // }
+      // returndata['Id'] =junDuiXinXi[selectData[0][0]].id
+      // returndata['Name'] =junDuiXinXi[selectData[0][0]].name
+      // returndata['assign']= this.$store.state.militaryLoad.find(item=>item.ID === this.$store.state.junDuiShip[0]).型号 + this.$store.state.militaryLoad.find(itme=>item.ID === this.$store.state.junDuiShip[0]).运输船类型
+      // returndata['first_deliver'] = !!this.$store.state.youXianShuSongBingLi.find(item => item === junDuiXinXi[i].index).isNull()
+      // returndata['Camps'] =[]
+      // for(let i=0;i<selectData.length;i++){
+      //   returndata['Camps'].push({
+      //     'id:':junDuiXinXi[i[0]].children[i[1]].id,
+      //     'Name':junDuiXinXi[i[0]].children[i[1]].name,
+      //     'assign':this.$store.state.militaryLoad.find(item=>item.ID === this.$store.state.junDuiShip[0]).型号 + this.$store.state.militaryLoad.find(itme=>item.ID === this.$store.state.junDuiShip[0]).运输船类型,
+      //     'Campanies':{
+      //       "Id":junDuiXinXi[i[0]].children[i[1]].children[i[2]].id,
+      //       "Name":junDuiXinXi[i[0]].children[i[1]].children[i[2]].name,
+      //       'assign':this.$store.state.militaryLoad.find(item=>item.ID === this.$store.state.junDuiShip[0]).型号 + this.$store.state.militaryLoad.find(itme=>item.ID === this.$store.state.junDuiShip[0]).运输船类型,
+      //       "Num_soldier":junDuiXinXi[i[0]].children[i[1]].children[i[2]].people,
+      //       'good':{
+      //         "belong_id":junDuiXinXi[i[0]].children[i[1]].children[i[2]].id,
+      //         "name":"物资",
+      //         "length":4,
+      //         "width":2,
+      //         "weight":1,
+      //         "time":5,
+      //         "num":10
+      //       }
+      //     }
+      //   })
+      // }
     },
     jiSuanFanAn(){
+
+      this.getRenShuData()
       let data =
       {
         "prot_info":this.jiJieDianDataZhuanHua(this.$store.state.jiJieDianData),
@@ -300,7 +314,7 @@ export default {
 
     <Steps :active="index"></Steps>
 
-    <div class="split-container" v-if="index===1">
+    <div class="split-container" v-if="index===2">
       <el-row>
         <!-- 左侧区域 -->
         <el-col :span="12">
@@ -321,7 +335,7 @@ export default {
     </div>
 
 
-    <div class="split-container" v-if="index===2">
+    <div class="split-container" v-if="index===3">
       <el-row>
         <!-- 左侧区域 -->
         <el-col :span="6">
@@ -352,9 +366,9 @@ export default {
     </div>
 
 
-    <Zhuangzai_bulie v-if="index===3"></Zhuangzai_bulie>
-    <jijiedian v-if="index===4"></jijiedian>
-    <Ji_jie_dian v-if="index === 5"></Ji_jie_dian>
+    <Zhuangzai_bulie v-if="index===4"></Zhuangzai_bulie>
+    <jijiedian v-if="index===5"></jijiedian>
+    <Ji_jie_dian v-if="index === 1"></Ji_jie_dian>
     <TransportationPlanning v-if="index===6"></TransportationPlanning>
     <el-button @click="sub">上一步</el-button>
     <el-button @click="add">下一步</el-button>

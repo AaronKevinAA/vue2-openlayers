@@ -7,9 +7,11 @@
         <template slot="title">可输送兵力</template>
         <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">
           <template slot="title">
+            {{ item.name }}
+            （优先装载
             <el-checkbox @click="youXianShuSongBingLi(item.index)">
-              {{ item.name }}
             </el-checkbox>
+            ）
           </template>
           <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">
             <template slot="title">{{ item2.name }}</template>
