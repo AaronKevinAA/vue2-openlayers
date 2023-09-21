@@ -15,7 +15,7 @@
 import View from 'ol/View'
 import Map from 'ol/Map'
 import TileLayer from 'ol/layer/Tile'
-import {OSM} from 'ol/source';
+import {OSM, TileWMS} from 'ol/source';
 import {defaults} from "ol/control";
 import DialogComponent from "@/components/dialog-component.vue";
 import axios from 'axios'
@@ -53,7 +53,15 @@ export default {
           rotate:false,
         }).extend([]),
         layers: [
-          new TileLayer({ source: new OSM() }),// 创建一个使用Open Street Map地图源的瓦片图层
+          // new TileLayer({ source: new OSM() }),// 创建一个使用Open Street Map地图源的瓦片图层
+            new TileWMS({
+              url:'http://localhost:8887/geoserver/whgcdx/wms',
+              params:{
+                'LAYERS':'whgcdx:L17',
+                'TILED':true
+              },
+              serverType:'geoserver'
+            })
         ],
         // 设置显示地图的视图
         view: new View({
