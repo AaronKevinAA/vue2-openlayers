@@ -1,6 +1,7 @@
 <template>
     <div class="table-container">
-        <el-table :data="this.$store.state.loadVesselData" style="width: 100%">
+<!--      <el-table :data="this.$store.state.loadVesselData" style="width: 100%">-->
+        <el-table :data="getShipData()" style="width: 100%">
             <el-table-column prop="isCheck" label="选择" width="90">
                 <template slot-scope="scope">
                     <!-- {{ scope }} -->
@@ -60,6 +61,14 @@ export default {
         }
     },
     methods: {
+
+        getShipData(){
+          let data =[...this.$store.state.loadVesselData]
+          // const selectList = ['ship_071']
+          const selectList = this.$store.state.junDuiShip
+          const filteredData = data.filter(item=> selectList.includes(item.ID))
+          return filteredData
+        },
         buttonChange(value) {
             // console.log(value)
             if (this.$store.state.selectShipList.includes(value)) {

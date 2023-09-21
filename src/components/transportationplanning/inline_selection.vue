@@ -5,7 +5,8 @@
     <el-menu class="el-menu-vertical-demo">
       <el-submenu index="1">
         <template slot="title">装备选择</template>
-        <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">
+<!--        <el-submenu v-for="(item, index) in this.$store.state.militaryRepost" :key="index" :index="item.index">-->
+        <el-submenu v-for="(item, index) in getBinLiData()" :key="index" :index="item.index">
           <template slot="title">{{ item.name }}</template>
           <el-submenu v-for="(item2, index2) in item.children" :key="index2" :index="item.index + '-' + item2.index">
             <template slot="title">{{ item2.name }}</template>
@@ -18,7 +19,7 @@
               </template>
 
               <div v-for="(it,id1) in returnZhunBeiData()" :key="id1">
-                <el-menu-item  v-if="subItem.equip === it.ID">
+                <el-menu-item  v-if="subItem.equip === it.ID" >
                   <div>  {{ it.装备类型}} </div>
                 </el-menu-item>
               </div>
@@ -53,7 +54,77 @@ export default {
       // ]
     }
   },
+  created() {
+    // this.getBinLiData()
+    // this.getShipData()
+  },
   methods: {
+    getBinLiData(){
+      let data =[...this.$store.state.militaryRepost]
+      //  [1-1-1,1-2-1]
+      console.log(data[0].name)
+      // const indices = ['1-1-1', '1-2-1', '2-1-1'];
+      const indices = this.$store.state.checkedMilitary
+      // const result = [];
+      // indices.forEach(index => {
+      //   const [t, c, cc] = index.split('-');
+      //   const tIndex = parseInt(t) - 1;
+      //   const cIndex = parseInt(c) - 1;
+      //   const ccIndex = parseInt(cc) - 1;
+      //
+      //   if (data[tIndex] && data[tIndex].children[cIndex] && data[tIndex].children[cIndex].children[ccIndex]) {
+      //     result.push(data[tIndex].children[cIndex].children[ccIndex]);
+      //   }
+      // });
+
+      const result = [];
+      indices.forEach(index => {
+        const [t, c, cc] = index.split('-');
+        const tIndex = parseInt(t) - 1;
+        const cIndex = parseInt(c) - 1;
+        const ccIndex = parseInt(cc) - 1;
+
+        if (data[tIndex]) {
+          const targetT = { ...data[tIndex] };
+          if (targetT.children[cIndex]) {
+            const targetC = { ...targetT.children[cIndex] };
+            if (targetC.children[ccIndex]) {
+              const targetCC = { ...targetC.children[ccIndex] };
+              targetCC.parent = targetC;
+              targetC.children = [targetCC];
+              targetT.children = [targetC];
+              // result.push(targetT);
+              for(let i=0;i<=result.length;i++){
+                if(result.length !== 0 && result[i].hasOwnProperty('name') && result[i].name === targetT.name){
+                    for(let j=0;j<result[i].children.length;j++){
+                      if (result[i].children[j].hasOwnProperty('name') && result[i].children[j].name ===targetC.name ){
+                        result[i].children[j].children.push(targetCC)
+                      }else{
+                        result[i].children.push(targetC)
+                      }
+                    }
+                }else{
+                  console.log(1234)
+                  result.push(targetT)
+                  break
+                }
+              }
+            }
+          }
+        }
+      });
+      console.log(result)
+      return result
+    },
+    findNotAppearIndex(level,[]){
+      if(level === 1){
+      }else if(level ===2){
+      }else if(level ===3){
+      }
+    },
+    popListData(list,index){
+      list.splice(index,1)
+    },
     checkboxClick(value) {
       if (this.$store.state.checkInlineListData.includes(value)) {
         this.$store.commit('removeCheckInline',value)

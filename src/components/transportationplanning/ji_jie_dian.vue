@@ -1,14 +1,14 @@
 <template>
     <div>
-        <el-form :model="form" label-width="120px">
+        <el-form :model="aimLoc" label-width="120px">
             <el-form-item label="集结点名字">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="aimLoc.location_name"></el-input>
             </el-form-item>
             <el-form-item label="经度">
-                <el-input v-model="form.email"></el-input>
+                <el-input v-model="aimLoc.longitude"></el-input>
             </el-form-item>
             <el-form-item label="维度">
-                <el-input v-model="form.password"></el-input>
+                <el-input v-model="aimLoc.latitude"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">从地图上选择</el-button>
@@ -45,6 +45,11 @@ export default {
         CalPlan() {
 
         }
+    },
+    computed:{
+      aimLoc(){
+        return this.$store.state.aimLoc
+      }
     }
 }
 </script>

@@ -12,6 +12,7 @@ export default new Vuex.Store({
       { name: '陆战2旅', index: '2',id:'T2', children: [{ name: '机步1营', index: '1',id:'C1',children: [{ id:'T2_C1_c1', name: '机步1连', index: '1',people:'120','equip':'goods_zhi8',equipmentNumber:'120' }, { id:'T2_C1_c2',name: '机步2连', index: '2' ,people:'120','equip':'goods_zhi8',equipmentNumber:'120'},{ id:'T2_C1_c3',name: '机步3连', index: '3',people:'120','equip':'goods_zhi8',equipmentNumber:'120'}] }, { name: '机步2营',id:'C2', index: '2', children: [{ id:'T2_C2_c1',name: '机步1连', index: '1' ,people:'120','equip':'goods_xx',equipmentNumber:'120'}, { id:'T2_C2_c2',name: '机步2连', index: '2' ,people:'120','equip':'goods_xx',equipmentNumber:'120'}, { id:'T2_C2_c3',name: '机步3连', index: '3',people:'120','equip':'goods_xx',equipmentNumber:'120'}] }] },
       // { name: '弹药', index: '3', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '炮兵2营', index: '2', children: [{ name: '炮兵1连', index: '1' }, { name: '炮兵1连', index: '2' }, { name: '炮兵1连', index: '2' }] }] }
     ],
+
     // militaryLoad: [
     //   { name: '兵力', index: '1', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '炮兵2营', index: '2', children: [{ name: '炮兵1连', index: '1' }, { name: '炮兵2连', index: '2' },{ name: '炮兵3连', index: '3' }] }] },
     //   { name: '装备', index: '2', children: [{ name: '坦克1营', index: '1', children: [{ name: '坦克1连', index: '1' }, { name: '坦克2连', index: '2' },{ name: '坦克3连', index: '3' }] }, { name: '迫击炮2营', index: '2', children: [{ name: '迫击炮1连', index: '1' }, { name: '迫击炮2连', index: '2' }, { name: '迫击炮3连', index: '3' }] }] },
@@ -300,6 +301,12 @@ export default new Vuex.Store({
       },
 
     ],
+    // 集结点数据
+    aimLoc : {
+      location_name: '集结点1',
+      longitude: 118.38153076171875,
+      latitude: 23.11248779296875
+    }
 
   },
   getters: {
@@ -336,7 +343,6 @@ export default new Vuex.Store({
     },
 
     // 优先输送兵力
-
     pushYouXianShuSong(state,element){
       state.youXianShuSongBingLi.push(element)
     },

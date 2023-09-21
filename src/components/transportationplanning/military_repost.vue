@@ -9,7 +9,7 @@
           <template slot="title">
             {{ item.name }}
             （优先装载
-            <el-checkbox @click="youXianShuSongBingLi(item.index)">
+            <el-checkbox @change="youXianShuSongBingLi(item.index)">
             </el-checkbox>
             ）
           </template>
@@ -47,12 +47,11 @@ export default {
   },
   methods: {
     checkboxClick(value) {
-      if (this.$store.state.inlineListData.includes(value)) {
+      if (this.$store.state.checkedMilitary.includes(value)) {
         this.$store.commit('removeCheckMilitary',value)
       } else {
         this.$store.commit('pushCheckedMilitary',value)
       }
-      console.log(this.$store.state.inlineListData)
     },
 
     youXianShuSongBingLi(value) {
@@ -61,7 +60,6 @@ export default {
       } else {
         this.$store.commit('pushYouXianShuSong',value)
       }
-      console.log(this.$store.state.inlineListData)
     },
 
     nextButton(){

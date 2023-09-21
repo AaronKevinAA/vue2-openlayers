@@ -47,13 +47,13 @@ export default {
     }
   },
   methods: {
+
     checkboxClick(value) {
       if (this.$store.state.junDuiShip.includes(value)) {
         this.$store.commit('removeSelectJunDuiShip',value)
       } else {
         this.$store.commit('pushSelectJunDuiShip',value)
       }
-      console.log(this.$store.state.checkedMilitary)
     },
     nextButton(){
     }
