@@ -17,7 +17,7 @@ import Map from 'ol/Map'
 import TileLayer from 'ol/layer/Tile'
 import {OSM} from 'ol/source';
 import {defaults} from "ol/control";
-import DialogComponent from "@/components/dialog_component.vue";
+import DialogComponent from "@/components/dialog-component.vue";
 import axios from 'axios'
 export default {
   name: 'HomeView',

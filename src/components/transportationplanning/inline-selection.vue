@@ -59,23 +59,36 @@ export default {
     // this.getShipData()
   },
   methods: {
+    mergeElements(data) {
+      const mergedData = [];
+      // 遍历每个元素
+      for (const item of data) {
+        // const { index, children } = item;
+        // 查找是否存在相同父级的元素
+        const existingItem = mergedData.find((mergedItem) => mergedItem.index === item.index);
+        if (existingItem) {
+          // 合并children
+          if (Array.isArray(item.children)) {
+            existingItem.children.push(...item.children);
+          }
+        } else {
+          // 创建新的元素并添加到mergedData中
+          mergedData.push({ ...item, children: Array.isArray(item.children) ? [...item.children] : [] });
+        }
+      }
+      // 递归合并children
+      for (const item of mergedData) {
+        if (Array.isArray(item.children)) {
+          item.children = this.mergeElements(item.children);
+        }
+      }
+      return mergedData;
+    },
     getBinLiData(){
       let data =[...this.$store.state.militaryRepost]
-      //  [1-1-1,1-2-1]
-      console.log(data[0].name)
       // const indices = ['1-1-1', '1-2-1', '2-1-1'];
       const indices = this.$store.state.checkedMilitary
-      // const result = [];
-      // indices.forEach(index => {
-      //   const [t, c, cc] = index.split('-');
-      //   const tIndex = parseInt(t) - 1;
-      //   const cIndex = parseInt(c) - 1;
-      //   const ccIndex = parseInt(cc) - 1;
-      //
-      //   if (data[tIndex] && data[tIndex].children[cIndex] && data[tIndex].children[cIndex].children[ccIndex]) {
-      //     result.push(data[tIndex].children[cIndex].children[ccIndex]);
-      //   }
-      // });
+
 
       const result = [];
       indices.forEach(index => {
@@ -94,27 +107,12 @@ export default {
               targetC.children = [targetCC];
               targetT.children = [targetC];
               result.push(targetT);
-              // for(let i=0;i<=result.length;i++){
-              //   if(result.length !== 0 && result[i].hasOwnProperty('name') && result[i].name === targetT.name){
-              //       for(let j=0;j<result[i].children.length;j++){
-              //         if (result[i].children[j].hasOwnProperty('name') && result[i].children[j].name ===targetC.name ){
-              //           result[i].children[j].children.push(targetCC)
-              //         }else{
-              //           result[i].children.push(targetC)
-              //         }
-              //       }
-              //   }else{
-              //     console.log(1234)
-              //     result.push(targetT)
-              //     break
-              //   }
-              // }
             }
           }
         }
       });
-      console.log(result)
-      return result
+      let rr_data = this.mergeElements(result)
+      return rr_data
     },
     findNotAppearIndex(level,[]){
       if(level === 1){
