@@ -64,6 +64,20 @@ export default {
         },
       ],
     }
+  },
+  methods:{
+    getAssignResultData(){
+      const resultObject = this.$store.state.assignResult
+      const resultArray = Object.entries(resultObject).map(([key, value]) => ({
+        hull: key,
+        ship_type: value.ship_type,
+        location: value.location,
+        type: value.type,
+        time: value.time
+      }));
+      console.log(resultArray);
+      return resultArray
+    }
   }
 }
 </script>
@@ -124,10 +138,10 @@ export default {
           <!-- 右侧内容 -->
           <div>
 
-            <el-table :data="tableData2" border stripe style="width: 100%">
+            <el-table :data="getAssignResultData()" border stripe style="width: 100%">
               <el-table-column prop="date" label="运输船号" width="80">
                 <template slot-scope="scope">
-                  {{ scope.row.ship }}
+                  {{ scope.row.ship_type }}
                 </template>
               </el-table-column>
               <el-table-column prop="name" label="舷号" width="80">
@@ -137,19 +151,19 @@ export default {
               </el-table-column>
               <el-table-column prop="address" label="装载点" width="80">
                 <template slot-scope="scope">
-                  {{ scope.row.pepoleNumber }}
+                  {{ scope.row.location }}
                 </template>
               </el-table-column>
 
               <el-table-column prop="address" label="装在方式" width="80">
                 <template slot-scope="scope">
-                  {{ scope.row.strength }}
+                  {{ scope.row.type }}
                 </template>
               </el-table-column>
 
               <el-table-column prop="address" label="装载时间" width="200">
                 <template slot-scope="scope">
-                  {{ scope.row.equitment }}
+                  {{ scope.row.time }}
                 </template>
               </el-table-column>
 

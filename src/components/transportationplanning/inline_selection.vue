@@ -93,22 +93,22 @@ export default {
               targetCC.parent = targetC;
               targetC.children = [targetCC];
               targetT.children = [targetC];
-              // result.push(targetT);
-              for(let i=0;i<=result.length;i++){
-                if(result.length !== 0 && result[i].hasOwnProperty('name') && result[i].name === targetT.name){
-                    for(let j=0;j<result[i].children.length;j++){
-                      if (result[i].children[j].hasOwnProperty('name') && result[i].children[j].name ===targetC.name ){
-                        result[i].children[j].children.push(targetCC)
-                      }else{
-                        result[i].children.push(targetC)
-                      }
-                    }
-                }else{
-                  console.log(1234)
-                  result.push(targetT)
-                  break
-                }
-              }
+              result.push(targetT);
+              // for(let i=0;i<=result.length;i++){
+              //   if(result.length !== 0 && result[i].hasOwnProperty('name') && result[i].name === targetT.name){
+              //       for(let j=0;j<result[i].children.length;j++){
+              //         if (result[i].children[j].hasOwnProperty('name') && result[i].children[j].name ===targetC.name ){
+              //           result[i].children[j].children.push(targetCC)
+              //         }else{
+              //           result[i].children.push(targetC)
+              //         }
+              //       }
+              //   }else{
+              //     console.log(1234)
+              //     result.push(targetT)
+              //     break
+              //   }
+              // }
             }
           }
         }

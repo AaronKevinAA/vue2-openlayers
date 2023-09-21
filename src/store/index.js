@@ -306,7 +306,58 @@ export default new Vuex.Store({
       location_name: '集结点1',
       longitude: 118.38153076171875,
       latitude: 23.11248779296875
-    }
+    },
+    // 前端返回的装载船的数据->方案生成
+    scheme_result:{
+      Min_time: [
+        {
+          ship_name: '071登陆舰',
+          ship_id: '071_1',
+          ship_num: 500,
+          ship_include: ['一旅一营一连', '一旅一营二连'],
+          ship_goods: [
+            {
+              goods_name: '物资',
+              goods_num: 10
+            }
+          ]
+        },
+        {
+          ship_name: '072登陆舰',
+          ship_id: '072_1',
+          ship_num: 500,
+          ship_include: ['二旅一营一连', '二旅一营二连'],
+          ship_goods: [
+            {
+              goods_name: '物资',
+              goods_num: 10
+            }
+          ]
+        }
+      ],
+      Min_ship: []
+    },
+    // 后端返回数据->装载点信息
+    assignResult:{
+      "071_1": {
+        "ship_type": "071登陆舰",
+        "location": "东山港",
+        "type": "吊装",
+        "time": 20
+      },
+      "071_2": {
+        "ship_type": "071登陆舰",
+        "location": "东山港",
+        "type": "吊装",
+        "time": 20
+      },
+      "072_1": {
+        "ship_type": "072登陆舰",
+        "location": "东山港",
+        "type": "吊装",
+        "time": 20
+      }
+    },
 
   },
   getters: {
