@@ -33,15 +33,15 @@ export default {
     this.showMap();
   },
   created() {
-    (()=>{
-      axios.post('http://169.254.107.196:5000/api/function_1',{})
-          .then(res => {
-            console.log(res.status)
-          })
-          .catch(error=>{
-            console.log(error)
-          })
-    })()
+    // (()=>{
+    //   axios.post('http://169.254.107.196:5000/api/function_1',{})
+    //       .then(res => {
+    //         console.log(res.status)
+    //       })
+    //       .catch(error=>{
+    //         console.log(error)
+    //       })
+    // })()
   },
   methods:{
     //显示地图的方法
@@ -53,15 +53,18 @@ export default {
           rotate:false,
         }).extend([]),
         layers: [
-          new TileLayer({ source: new OSM() }),// 创建一个使用Open Street Map地图源的瓦片图层
-          //   new TileWMS({
-          //     url:'http://localhost:8887/geoserver/whgcdx/wms',
-          //     params:{
-          //       'LAYERS':'whgcdx:L17',
-          //       'TILED':true
-          //     },
-          //     serverType:'geoserver'
-          //   })
+          new TileLayer({
+            source:new TileWMS({
+              crossOrigin:'anonymous',
+              url:'http://localhost:8887/geoserver/whgcdx/wms',
+              params:{
+                'LAYERS':'whgcdx:L17',
+                'TILED':true
+              },
+              serverType:'geoserver'
+            })
+          })
+          // new TileLayer({ source: new OSM() }),// 创建一个使用Open Street Map地图源的瓦片图层
         ],
         // 设置显示地图的视图
         view: new View({
